@@ -61,3 +61,21 @@ for (const path of ["/", "/en/", "/ca/"])
     await expect(photo).toHaveAttribute("alt", "Duarte Domingos");
     expect(await photo.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
   });
+
+for (const [path, view, download, pdf] of [
+  ["/", "Ver CV", "Descargar CV", "/cv/duarte-domingos-cv-es.pdf"],
+  ["/en/", "View CV", "Download CV", "/cv/duarte-domingos-cv-en.pdf"],
+  ["/ca/", "Veure CV", "Descarregar CV", "/cv/duarte-domingos-cv-ca.pdf"],
+] as const)
+  test(`CV can be viewed in the browser or downloaded ${path}`, async ({ page }) => {
+    await page.goto(path);
+    for (const scope of [page.locator("main > section").first(), page.locator("#contact")]) {
+      const viewLink = scope.getByRole("link", { name: view, exact: true });
+      await expect(viewLink).toHaveAttribute("href", pdf);
+      await expect(viewLink).toHaveAttribute("target", "_blank");
+      await expect(viewLink).not.toHaveAttribute("download");
+      await expect(scope.getByRole("link", { name: download, exact: true })).toHaveAttribute(
+        "download",
+      );
+    }
+  });

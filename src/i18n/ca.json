@@ -25,5 +25,6 @@
   "cv.profile": "Perfil",
   "cv.experience": "Experiència laboral",
   "cv.website": "Pàgina web",
-  "cv.email": "Correu"
+  "cv.email": "Correu",
+  "hero.ctaViewCv": "Veure CV"
 }

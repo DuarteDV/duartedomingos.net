@@ -8,10 +8,11 @@ interface Props {
   linkedin: string;
   github: string;
   cvHref: string;
+  cvViewLabel: string;
   cvLabel: string;
 }
 
-const { title, intro, email, linkedin, github, cvHref, cvLabel } = Astro.props;
+const { title, intro, email, linkedin, github, cvHref, cvViewLabel, cvLabel } = Astro.props;
 ---
 
 <Section id="contact" title={title}>
@@ -31,6 +32,11 @@ const { title, intro, email, linkedin, github, cvHref, cvLabel } = Astro.props;
     <li>
       <a href={github} class="underline-offset-4 hover:underline">
         GitHub
+      </a>
+    </li>
+    <li>
+      <a href={cvHref} target="_blank" rel="noopener" class="underline-offset-4 hover:underline">
+        {cvViewLabel}
       </a>
     </li>
     <li>
