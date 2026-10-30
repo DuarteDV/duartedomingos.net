@@ -32,7 +32,9 @@ const backHref = `${pathFor(locale, { kind: "home" })}#projects`;
     <p class="mt-10 font-mono text-sm text-accent">
       {year} · {stack.join(" · ")}
     </p>
-    <h1 class="mt-3 text-4xl leading-tight font-medium tracking-[-0.02em] md:text-5xl">{title}</h1>
+    <h1 class="mt-3 text-4xl leading-tight font-medium tracking-[-0.02em] [overflow-wrap:anywhere] md:text-5xl">
+      {title}
+    </h1>
     <p class="mt-4 text-lg text-muted">{summary}</p>
 
     {links && (links.demo || links.code) && (

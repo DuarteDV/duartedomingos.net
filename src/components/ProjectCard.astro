@@ -25,7 +25,7 @@ const { href, title, summary, year, stack, cover } = Astro.props;
     />
   </div>
   <p class="mt-4 font-mono text-xs text-muted">{year}</p>
-  <h3 class="mt-1 text-lg font-medium">
+  <h3 class="mt-1 text-lg font-medium [overflow-wrap:anywhere]">
     <a href={href} class="after:absolute after:inset-0">
       {title}
     </a>
