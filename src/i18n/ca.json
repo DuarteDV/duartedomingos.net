@@ -21,5 +21,9 @@
   "notFound.body": "La pàgina que busques no existeix o s'ha mogut.",
   "notFound.home": "Anar a la portada",
   "footer.rights": "Fet per Duarte Domingos",
-  "contact.intro": "En parlem? Escriu-me i et respondré tan aviat com pugui."
+  "contact.intro": "En parlem? Escriu-me i et respondré tan aviat com pugui.",
+  "cv.profile": "Perfil",
+  "cv.experience": "Experiència laboral",
+  "cv.website": "Pàgina web",
+  "cv.email": "Correu"
 }

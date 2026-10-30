@@ -29,8 +29,6 @@ export interface SpokenLanguage {
   level: Localized<string>;
 }
 
-const cvEs = "/cv/duarte-domingos-cv-es.pdf";
-
 export const profile = {
   name: "Duarte Domingos",
   email: contact.email,
@@ -55,8 +53,12 @@ export const profile = {
     en: "Open to new opportunities in Barcelona (hybrid) or remote.",
     ca: "Obert a noves oportunitats a Barcelona (híbrid) o en remot.",
   },
-  // There is no Catalan CV yet (spec §10): /ca/ links to the Spanish one.
-  cvPdf: { es: cvEs, en: "/cv/duarte-domingos-cv-en.pdf", ca: cvEs },
+  // Generated from this data by `npm run cv` (scripts/build-cv.mjs).
+  cvPdf: {
+    es: "/cv/duarte-domingos-cv-es.pdf",
+    en: "/cv/duarte-domingos-cv-en.pdf",
+    ca: "/cv/duarte-domingos-cv-ca.pdf",
+  },
 } satisfies {
   name: string;
   email: string;

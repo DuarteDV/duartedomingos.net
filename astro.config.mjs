@@ -22,6 +22,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: { defaultLocale: "es", locales: { es: "es-ES", en: "en", ca: "ca" } },
+      // Printable CV sources only exist to generate the PDFs.
+      filter: (page) => !page.includes("/cv-print/"),
     }),
   ],
 });

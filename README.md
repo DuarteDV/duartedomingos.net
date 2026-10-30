@@ -44,7 +44,9 @@ The project appears on the home page and gets its own page at `/proyectos/<slug>
 
 ## Editing the CV
 
-Experience, education, skills and languages live in `src/data/cv.ts`, with every text in the three languages. Interface text is in `src/i18n/{es,en,ca}.json`. The PDFs are in `public/cv/`.
+Experience, education, skills and languages live in `src/data/cv.ts`, with every text in the three languages. Interface text is in `src/i18n/{es,en,ca}.json`.
+
+The downloadable PDFs in `public/cv/` are generated from that same data: `src/pages/cv-print/` lays out an A4 page per language and `npm run cv` builds the site and prints the three PDFs. Run it after changing the CV data and commit the PDFs.
 
 ## Deployment
 

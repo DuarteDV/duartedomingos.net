@@ -45,5 +45,9 @@ test("banking role leads with data work, not financial messaging", () => {
   }
 });
 
-test("Catalan CV falls back to the Spanish PDF", () =>
-  expect(profile.cvPdf.ca).toBe(profile.cvPdf.es));
+test("each language has its own CV PDF", () =>
+  expect(profile.cvPdf).toEqual({
+    es: "/cv/duarte-domingos-cv-es.pdf",
+    en: "/cv/duarte-domingos-cv-en.pdf",
+    ca: "/cv/duarte-domingos-cv-ca.pdf",
+  }));

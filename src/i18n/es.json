@@ -21,5 +21,9 @@
   "notFound.body": "La página que buscas no existe o se ha movido.",
   "notFound.home": "Ir a la portada",
   "footer.rights": "Hecho por Duarte Domingos",
-  "contact.intro": "¿Hablamos? Escríbeme y te respondo lo antes posible."
+  "contact.intro": "¿Hablamos? Escríbeme y te respondo lo antes posible.",
+  "cv.profile": "Perfil",
+  "cv.experience": "Experiencia laboral",
+  "cv.website": "Página web",
+  "cv.email": "Email"
 }
