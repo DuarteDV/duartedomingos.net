@@ -1,0 +1,27 @@
+---
+import { locales, t, type Locale, type Localized } from "../i18n/utils";
+
+interface Props {
+  locale: Locale;
+  alternates: Localized<string>;
+}
+
+const { locale, alternates } = Astro.props;
+---
+
+<div role="group" aria-label={t(locale, "lang.label")} class="flex items-center font-mono text-xs">
+  {locales.map((l) => (
+    <a
+      href={alternates[l]}
+      hreflang={l}
+      lang={l}
+      aria-current={l === locale ? "true" : undefined}
+      class:list={[
+        "rounded px-1.5 py-1 uppercase transition-colors",
+        l === locale ? "text-ink" : "text-muted hover:text-ink",
+      ]}
+    >
+      {l.toUpperCase()}
+    </a>
+  ))}
+</div>

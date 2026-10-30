@@ -1,8 +1,9 @@
 ---
 import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 import ThemeScript from "../components/ThemeScript.astro";
-import ThemeToggle from "../components/ThemeToggle.astro";
-import { defaultLocale, locales, t, type Locale, type Localized } from "../i18n/utils";
+import { defaultLocale, locales, pathFor, t, type Locale, type Localized } from "../i18n/utils";
 
 interface Props {
   locale: Locale;
@@ -62,9 +63,10 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     >
       {t(locale, "a11y.skip")}
     </a>
-    <ThemeToggle label={t(locale, "theme.toggle")} />
+    <Header locale={locale} alternates={alternates} homeHref={pathFor(locale, { kind: "home" })} />
     <main id="main">
       <slot />
     </main>
+    <Footer locale={locale} />
   </body>
 </html>
