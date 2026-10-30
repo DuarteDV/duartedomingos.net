@@ -1,0 +1,19 @@
+---
+import Section from "./Section.astro";
+
+interface Props {
+  title: string;
+  about: string;
+  availability: string;
+}
+
+const { title, about, availability } = Astro.props;
+---
+
+<Section id="about" title={title}>
+  <p class="max-w-2xl">{about}</p>
+  <p class="mt-6 flex items-start gap-3 text-muted">
+    <span class="mt-2.5 size-2 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
+    <span>{availability}</span>
+  </p>
+</Section>

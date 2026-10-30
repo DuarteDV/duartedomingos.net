@@ -1,0 +1,35 @@
+---
+interface Props {
+  eyebrow: string;
+  name: string;
+  tagline: string;
+  ctaProjects: string;
+  ctaCv: string;
+  cvHref: string;
+}
+
+const { eyebrow, name, tagline, ctaProjects, ctaCv, cvHref } = Astro.props;
+---
+
+<section class="mx-auto max-w-5xl px-4 pt-20 pb-16 sm:px-6 md:pt-32 md:pb-24">
+  <p class="font-mono text-sm text-accent">{eyebrow}</p>
+  <h1 class="mt-4 text-[40px] leading-[1.05] font-medium tracking-[-0.02em] md:text-[64px]">
+    {name}
+  </h1>
+  <p class="mt-6 max-w-xl text-lg text-muted md:text-xl">{tagline}</p>
+  <div class="mt-9 flex flex-wrap gap-3">
+    <a
+      href="#projects"
+      class="rounded-lg bg-ink px-5 py-2.5 text-sm font-medium text-surface transition-opacity hover:opacity-85"
+    >
+      {ctaProjects}
+    </a>
+    <a
+      href={cvHref}
+      download
+      class="rounded-lg border border-line px-5 py-2.5 text-sm font-medium transition-colors hover:border-ink"
+    >
+      {ctaCv}
+    </a>
+  </div>
+</section>
