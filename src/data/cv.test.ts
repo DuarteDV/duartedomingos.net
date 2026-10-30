@@ -26,10 +26,24 @@ test("every localized string is filled and clean", () => {
 });
 
 test("jobs ordered newest first", () =>
-  expect(jobs.map((j) => j.company)).toEqual([
-    "Tech-Value Ibérica (Var Group)",
-    "BDR Informàtica",
+  expect(jobs.map((j) => [j.company, j.start])).toEqual([
+    ["Vargroup Andorra", "2026-01"],
+    ["Vargroup Andorra", "2023-11"],
+    ["BDR Informàtica", "2022-07"],
   ]));
+
+test("consecutive jobs don't leave gaps", () => {
+  for (let i = 0; i + 1 < jobs.length; i++) expect(jobs[i + 1].end).toBe(jobs[i].start);
+});
+
+// The SWIFT conversion was a short task: it must not lead the banking role.
+test("banking role leads with data work, not financial messaging", () => {
+  const banking = jobs[1].bullets;
+  for (const locale of ["es", "en", "ca"] as const) {
+    expect(banking[locale][0]).toMatch(/Python|Snowflake/);
+    expect(banking[locale].at(-1)).toMatch(/SWIFT/);
+  }
+});
 
 test("Catalan CV falls back to the Spanish PDF", () =>
   expect(profile.cvPdf.ca).toBe(profile.cvPdf.es));

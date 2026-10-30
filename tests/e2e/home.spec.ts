@@ -35,7 +35,8 @@ test("CV link downloads", async ({ page, request }) => {
 
 test("experience shows the current job period", async ({ page }) => {
   await page.goto("/en/");
-  await expect(page.locator("#experience")).toContainText("Nov 2023 – Present");
+  await expect(page.locator("#experience")).toContainText("Jan 2026 – Present");
+  await expect(page.locator("#experience")).toContainText("Nov 2023 – Jan 2026");
 });
 
 // Review Focus 5

@@ -46,9 +46,9 @@ export const profile = {
     ca: "Construeixo programari útil i mantenible amb Java, Spring i SQL. Ara, cada cop més a prop del front-end.",
   },
   about: {
-    es: "Soy desarrollador de software desde 2022. He hecho desarrollo full-stack con C# y .NET, he construido soluciones de datos para el sector bancario y ahora trabajo en proyectos con Java y Spring. Me interesan el diseño de interfaces funcionales, la calidad del código y la mejora continua, y disfruto trabajando en equipo para crear software que sea útil para las personas.",
-    en: "I've been a software developer since 2022. I've done full-stack work with C# and .NET, built data solutions for the banking sector, and I now work on Java and Spring projects. I care about functional interface design, code quality and continuous improvement, and I enjoy working in a team to build software that is genuinely useful to people.",
-    ca: "Soc desenvolupador de programari des del 2022. He fet desenvolupament full-stack amb C# i .NET, he construït solucions de dades per al sector bancari i ara treballo en projectes amb Java i Spring. M'interessen el disseny d'interfícies funcionals, la qualitat del codi i la millora contínua, i gaudeixo treballant en equip per crear programari útil per a les persones.",
+    es: "Soy desarrollador de software desde 2022. He hecho desarrollo full-stack con C# y .NET, he construido soluciones de datos con Python y Snowflake para el sector bancario y ahora desarrollo aplicaciones con Java y Spring. Me interesan el diseño de interfaces funcionales, la calidad del código y la mejora continua, y disfruto trabajando en equipo para crear software que sea útil para las personas.",
+    en: "I've been a software developer since 2022. I've done full-stack work with C# and .NET, built data solutions with Python and Snowflake for the banking sector, and I now develop applications with Java and Spring. I care about functional interface design, code quality and continuous improvement, and I enjoy working in a team to build software that is genuinely useful to people.",
+    ca: "Soc desenvolupador de programari des del 2022. He fet desenvolupament full-stack amb C# i .NET, he construït solucions de dades amb Python i Snowflake per al sector bancari i ara desenvolupo aplicacions amb Java i Spring. M'interessen el disseny d'interfícies funcionals, la qualitat del codi i la millora contínua, i gaudeixo treballant en equip per crear programari útil per a les persones.",
   },
   availability: {
     es: "Abierto a nuevas oportunidades en Barcelona (híbrido) o en remoto.",
@@ -70,35 +70,59 @@ export const profile = {
 
 export const jobs: Job[] = [
   {
-    company: "Tech-Value Ibérica (Var Group)",
-    role: {
-      es: "Desarrollador de software",
-      en: "Software developer",
-      ca: "Desenvolupador de programari",
-    },
-    start: "2023-11",
+    company: "Vargroup Andorra",
+    role: { es: "Desarrollador Java", en: "Java developer", ca: "Desenvolupador Java" },
+    start: "2026-01",
     end: null,
     bullets: {
       es: [
-        "Desarrollo con Java y Spring en proyectos de Var Group.",
-        "Conversión de mensajería financiera ISO 20022 a SWIFT MT940/MT950 con Java.",
-        "Automatización y validación de procesos de datos a partir de ficheros diarios en el sector bancario.",
-        "Clasificación automática de correos con IA en Python.",
+        "Desarrollo de nuevas funcionalidades con Java y Spring en aplicaciones de gran tamaño.",
+        "Análisis funcional, revisión de funcionalidades y resolución de incidencias junto al equipo.",
       ],
       en: [
-        "Java and Spring development on Var Group projects.",
-        "Conversion of ISO 20022 financial messages to SWIFT MT940/MT950 in Java.",
-        "Automation and validation of data processes fed by daily files in the banking sector.",
-        "AI-based email classification in Python.",
+        "Building new features with Java and Spring in large applications.",
+        "Functional analysis, feature reviews and incident resolution together with the team.",
       ],
       ca: [
-        "Desenvolupament amb Java i Spring en projectes de Var Group.",
-        "Conversió de missatgeria financera ISO 20022 a SWIFT MT940/MT950 amb Java.",
-        "Automatització i validació de processos de dades a partir de fitxers diaris en el sector bancari.",
-        "Classificació automàtica de correus amb IA en Python.",
+        "Desenvolupament de noves funcionalitats amb Java i Spring en aplicacions de gran mida.",
+        "Anàlisi funcional, revisió de funcionalitats i resolució d'incidències amb l'equip.",
       ],
     },
-    stack: ["Java", "Spring", "SQL", "Python", "SAS"],
+    stack: ["Java", "Spring", "SQL"],
+  },
+  {
+    company: "Vargroup Andorra",
+    role: {
+      es: "Desarrollador de software · sector bancario",
+      en: "Software developer · banking sector",
+      ca: "Desenvolupador de programari · sector bancari",
+    },
+    start: "2023-11",
+    end: "2026-01",
+    bullets: {
+      es: [
+        "Datalake en la nube: procesamiento de grandes volúmenes de datos con Python y Snowflake, procesos ETL con Airflow y cargas diarias y mensuales automatizadas.",
+        "Automatización y validación de procesos de datos a partir de ficheros diarios: detección de inconsistencias, duplicados y datos incompletos.",
+        "Aplicaciones web con .NET y SQL Server: procedimientos almacenados y consultas optimizadas.",
+        "Clasificación automática de correos con IA en Python (pandas) para reducir trabajo manual.",
+        "Herramientas internas en VBA (Excel y Access) y conversión de mensajes financieros SWIFT en Java.",
+      ],
+      en: [
+        "Cloud data lake: processing large data volumes with Python and Snowflake, ETL pipelines with Airflow and automated daily and monthly loads.",
+        "Automation and validation of data processes fed by daily files: detecting inconsistencies, duplicates and incomplete data.",
+        "Web applications with .NET and SQL Server: stored procedures and optimised queries.",
+        "AI-based email classification in Python (pandas) to reduce manual work.",
+        "Internal tools in VBA (Excel and Access) and conversion of SWIFT financial messages in Java.",
+      ],
+      ca: [
+        "Datalake al núvol: processament de grans volums de dades amb Python i Snowflake, processos ETL amb Airflow i càrregues diàries i mensuals automatitzades.",
+        "Automatització i validació de processos de dades a partir de fitxers diaris: detecció d'inconsistències, duplicats i dades incompletes.",
+        "Aplicacions web amb .NET i SQL Server: procediments emmagatzemats i consultes optimitzades.",
+        "Classificació automàtica de correus amb IA en Python (pandas) per reduir feina manual.",
+        "Eines internes en VBA (Excel i Access) i conversió de missatges financers SWIFT amb Java.",
+      ],
+    },
+    stack: ["Python", "Snowflake", "Airflow", "AWS", "SQL Server", ".NET", "SAS", "Java"],
   },
   {
     company: "BDR Informàtica",
@@ -169,15 +193,15 @@ export const skills: SkillGroup[] = [
   },
   {
     name: { es: "Datos", en: "Data", ca: "Dades" },
-    items: ["SQL", "Python", "SAS", "Snowflake", "AWS S3"],
+    items: ["Python", "SQL Server", "Snowflake", "Airflow", "AWS", "SAS"],
   },
   {
     name: { es: "Front-end y móvil", en: "Front-end and mobile", ca: "Front-end i mòbil" },
-    items: ["Astro", "TypeScript", "Tailwind CSS", "Blazor", "Flutter"],
+    items: ["Flutter", "Firebase", "Blazor", "TypeScript", "Astro", "Tailwind CSS"],
   },
   {
     name: { es: "Herramientas", en: "Tools", ca: "Eines" },
-    items: ["Git", "SVN", "Scrum"],
+    items: ["Git", "AWS CodeCommit", "SVN", "VBA", "Scrum"],
   },
 ];
 
