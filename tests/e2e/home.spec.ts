@@ -52,3 +52,12 @@ test("all content visible without JS", async ({ browser }) => {
   }
   await context.close();
 });
+
+for (const path of ["/", "/en/", "/ca/"])
+  test(`about shows the profile photo ${path}`, async ({ page }) => {
+    await page.goto(path);
+    const photo = page.locator("#about img");
+    await photo.scrollIntoViewIfNeeded();
+    await expect(photo).toHaveAttribute("alt", "Duarte Domingos");
+    expect(await photo.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+  });
