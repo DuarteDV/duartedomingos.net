@@ -4,12 +4,14 @@ import Contact from "../components/Contact.astro";
 import Education from "../components/Education.astro";
 import Experience from "../components/Experience.astro";
 import Hero from "../components/Hero.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 import Section from "../components/Section.astro";
 import Skills from "../components/Skills.astro";
 import { jobs, profile, skills, spokenLanguages, studies } from "../data/cv";
-import { alternates, pick, t, type Locale } from "../i18n/utils";
+import { alternates, pathFor, pick, t, type Locale } from "../i18n/utils";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatPeriod } from "../lib/dates";
+import { getProjects } from "../lib/projects";
 
 interface Props {
   locale: Locale;
@@ -17,6 +19,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const cvHref = pick(profile.cvPdf, locale);
+const projects = await getProjects();
 ---
 
 <BaseLayout
@@ -49,7 +52,21 @@ const cvHref = pick(profile.cvPdf, locale);
     }))}
   />
   <Section id="projects" title={t(locale, "nav.projects")}>
-    <slot name="projects" />
+    <div class="grid gap-x-8 gap-y-12 sm:grid-cols-2">
+      {projects.map(({ slug, byLocale }) => {
+        const { title, summary, year, stack, cover } = byLocale[locale].data;
+        return (
+          <ProjectCard
+            href={pathFor(locale, { kind: "project", slug })}
+            title={title}
+            summary={summary}
+            year={year}
+            stack={stack}
+            cover={cover}
+          />
+        );
+      })}
+    </div>
   </Section>
   <Skills
     title={t(locale, "nav.skills")}
