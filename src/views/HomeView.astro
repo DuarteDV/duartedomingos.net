@@ -37,6 +37,7 @@ const projects = await getProjects();
     name={profile.name}
     tagline={pick(profile.tagline, locale)}
     ctaProjects={t(locale, "hero.ctaProjects")}
+    ctaViewCv={t(locale, "hero.ctaViewCv")}
     ctaCv={t(locale, "hero.ctaCv")}
     cvHref={cvHref}
   />
@@ -98,6 +99,7 @@ const projects = await getProjects();
     linkedin={profile.links.linkedin}
     github={profile.links.github}
     cvHref={cvHref}
+    cvViewLabel={t(locale, "hero.ctaViewCv")}
     cvLabel={t(locale, "hero.ctaCv")}
   />
 </BaseLayout>

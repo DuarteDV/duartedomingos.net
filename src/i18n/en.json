@@ -25,5 +25,6 @@
   "cv.profile": "Profile",
   "cv.experience": "Work experience",
   "cv.website": "Website",
-  "cv.email": "Email"
+  "cv.email": "Email",
+  "hero.ctaViewCv": "View CV"
 }
