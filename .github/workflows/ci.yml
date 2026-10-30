@@ -23,16 +23,10 @@ jobs:
       - run: npm run check
       - run: npm run lint
       - run: npm run test:unit
+      # Tested build has no analytics token, so tests and Lighthouse never load the beacon.
       - run: npm run build
-        env:
-          PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
       - run: npm run test:e2e
       - run: npm run lhci
-      - uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist
-          retention-days: 7
 
   deploy:
     needs: test
@@ -43,10 +37,15 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/setup-node@v4
         with:
-          name: dist
-          path: dist
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # Only production counts visits: previews are built without the analytics token.
+      - run: npm run build
+        env:
+          PUBLIC_CF_BEACON_TOKEN: ${{ github.event_name == 'push' && vars.PUBLIC_CF_BEACON_TOKEN || '' }}
       # Pull requests get a temporary preview channel; pushes to main go live.
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
