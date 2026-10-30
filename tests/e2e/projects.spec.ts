@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const slugs = ["duartedomingos-net", "dont-touch-the-duck", "duarts-review"];
+const slugs = ["duartedomingos-net", "carefit", "dont-touch-the-duck", "duarts-review"];
 
 for (const s of slugs)
   for (const p of [`/proyectos/${s}/`, `/en/projects/${s}/`, `/ca/projectes/${s}/`])
@@ -45,7 +45,7 @@ test("back link returns to the projects section", async ({ page }) => {
 
 test("home lists 3 project cards linking to detail", async ({ page }) => {
   await page.goto("/en/");
-  await expect(page.locator("#projects article")).toHaveCount(3);
+  await expect(page.locator("#projects article")).toHaveCount(4);
   await expect(page.locator('#projects a[href="/en/projects/dont-touch-the-duck/"]')).toHaveCount(
     1,
   );
@@ -56,4 +56,10 @@ test("project page fits 320px", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 700 });
   await page.goto("/ca/projectes/dont-touch-the-duck/");
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test("CareFit is listed right after this website (newest first)", async ({ page }) => {
+  await page.goto("/");
+  const titles = await page.locator("#projects article h3").allTextContents();
+  expect(titles.map((t) => t.trim()).slice(0, 2)).toEqual(["duartedomingos.net", "CareFit"]);
 });
