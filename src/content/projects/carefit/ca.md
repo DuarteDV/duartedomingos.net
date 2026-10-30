@@ -4,13 +4,24 @@ summary: El meu treball de fi de grau. Una app mòbil d'entrenament feta amb Flu
 year: 2023
 stack: [Flutter, Dart, Firebase]
 cover: ./cover.png
+gallery:
+  - src: ./screens/01-bienvenida.png
+    alt: "Pantalla de benvinguda amb accés amb Google, amb correu o anònim"
+  - src: ./screens/02-inicio-sesion.png
+    alt: "Formulari d'inici de sessió"
+  - src: ./screens/03-ejercicios.png
+    alt: "Catàleg d'exercicis amb el seu grup muscular"
+  - src: ./screens/04-entrenamientos.png
+    alt: "Rutines de CareFit i rutines pròpies de l'usuari"
+  - src: ./screens/05-editar-rutina.png
+    alt: "Edició d'una rutina per dies amb els seus exercicis"
 ---
 
 CareFit és una aplicació mòbil de fitness que vaig desenvolupar com a treball de fi de grau del Grau en Informàtica de la Universitat d'Andorra. La idea era tenir en un sol lloc un catàleg d'exercicis ben explicats i les rutines pròpies de cada persona, i poder seguir-les durant l'entrenament.
 
 ## Què fa
 
-- **Comptes d'usuari:** registre i inici de sessió amb correu o amb Google, i recuperació de contrasenya.
+- **Comptes d'usuari:** registre i inici de sessió amb correu o amb Google, accés anònim i recuperació de contrasenya.
 - **Catàleg d'exercicis:** cada exercici té imatge, grup muscular, descripció, com executar-lo i consells.
 - **Rutines personalitzades:** crear, editar i eliminar rutines, triant els exercicis i les seves sèries, repeticions i pes.
 - **Entrenament:** començar una rutina, seguir-la exercici a exercici i finalitzar-la.

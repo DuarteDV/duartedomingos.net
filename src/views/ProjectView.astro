@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { locale, slug, entry } = Astro.props;
-const { title, summary, year, stack, cover, links } = entry.data;
+const { title, summary, year, stack, cover, links, gallery } = entry.data;
 const { Content } = await render(entry);
 const ogImage = await getImage({ src: cover, width: 1200, format: "png" });
 const backHref = `${pathFor(locale, { kind: "home" })}#projects`;
@@ -70,5 +70,19 @@ const backHref = `${pathFor(locale, { kind: "home" })}#projects`;
     <div class="prose-content mt-10">
       <Content />
     </div>
+
+    {gallery && (
+      <div data-gallery class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {gallery.map((shot) => (
+          <Image
+            src={shot.src}
+            alt={shot.alt}
+            widths={[240, 480]}
+            sizes="(min-width: 640px) 230px, 45vw"
+            class="w-full rounded-xl border border-line"
+          />
+        ))}
+      </div>
+    )}
   </article>
 </BaseLayout>

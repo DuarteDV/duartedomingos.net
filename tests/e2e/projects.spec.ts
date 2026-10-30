@@ -63,3 +63,20 @@ test("CareFit is listed right after this website (newest first)", async ({ page 
   const titles = await page.locator("#projects article h3").allTextContents();
   expect(titles.map((t) => t.trim()).slice(0, 2)).toEqual(["duartedomingos.net", "CareFit"]);
 });
+
+for (const path of ["/proyectos/carefit/", "/en/projects/carefit/", "/ca/projectes/carefit/"])
+  test(`CareFit shows a screenshot gallery ${path}`, async ({ page }) => {
+    await page.goto(path);
+    const shots = page.locator("[data-gallery] img");
+    await expect(shots).toHaveCount(5);
+    for (const shot of await shots.all()) {
+      await shot.scrollIntoViewIfNeeded();
+      expect((await shot.getAttribute("alt"))?.length).toBeGreaterThan(5);
+      expect(await shot.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    }
+  });
+
+test("projects without a gallery render none", async ({ page }) => {
+  await page.goto("/proyectos/duarts-review/");
+  await expect(page.locator("[data-gallery]")).toHaveCount(0);
+});

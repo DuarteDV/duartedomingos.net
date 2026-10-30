@@ -12,6 +12,7 @@ const projects = defineCollection({
       year: z.number().int(),
       stack: z.array(z.string()),
       cover: image(),
+      gallery: z.array(z.object({ src: image(), alt: z.string().min(1) })).optional(),
       links: z
         .object({
           demo: z.url().optional(),
