@@ -13,6 +13,19 @@ for (const [p, lang, home] of [
     await expect(block.getByRole("link")).toHaveAttribute("href", home);
   });
 
+for (const [p, lang, title] of [
+  ["/en/nope/", "en", "Page not found"],
+  ["/ca/res/", "ca", "Pàgina no trobada"],
+] as const)
+  test(`404 page chrome follows the URL language (${lang})`, async ({ page }) => {
+    await page.goto(p);
+    await expect(page).toHaveTitle(new RegExp(title));
+    await expect(page.locator("html")).toHaveAttribute("lang", lang);
+    // No Spanish text may remain visible anywhere on the page.
+    for (const spanish of ["Sobre mí", "Página no encontrada", "Hecho por"])
+      await expect(page.getByText(spanish).filter({ visible: true })).toHaveCount(0);
+  });
+
 test("robots and sitemap", async ({ request }) => {
   expect(await (await request.get("/robots.txt")).text()).toContain(
     "Sitemap: https://duartedomingos.net/sitemap-index.xml",
