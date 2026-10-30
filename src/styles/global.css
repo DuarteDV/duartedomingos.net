@@ -1,1 +1,65 @@
 @import "tailwindcss";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --dd-surface: #fafaf7;
+  --dd-ink: #1a1a18;
+  --dd-muted: #5f5e5a;
+  --dd-line: #d3d1c7;
+  --dd-accent: #0f6e56;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --dd-surface: #121211;
+  --dd-ink: #ecebe6;
+  --dd-muted: #a3a29b;
+  --dd-line: #2c2c2a;
+  --dd-accent: #5dcaa5;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --color-surface: var(--dd-surface);
+  --color-ink: var(--dd-ink);
+  --color-muted: var(--dd-muted);
+  --color-line: var(--dd-line);
+  --color-accent: var(--dd-accent);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (width >= 48rem) {
+    body {
+      font-size: 18px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
