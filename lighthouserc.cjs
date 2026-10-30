@@ -3,7 +3,7 @@ module.exports = {
     collect: {
       staticDistDir: "./dist",
       url: ["/", "/en/", "/ca/", "/proyectos/dont-touch-the-duck/"],
-      numberOfRuns: 1,
+      numberOfRuns: 3,
     },
     assert: {
       assertions: {
