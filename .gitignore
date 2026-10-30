@@ -33,3 +33,6 @@ playwright-report/
 firebase-debug.log
 *-debug.log
 .firebase/
+
+# Internal planning docs (spec and plan): kept locally, not published
+docs/
