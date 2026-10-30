@@ -12,9 +12,11 @@ interface Props {
   alternates: Localized<string>;
   ogImage?: string;
   jsonLd?: Record<string, unknown>;
+  /** For pages that must stay out of search results (404): no canonical or hreflang either. */
+  noindex?: boolean;
 }
 
-const { locale, title, description, alternates, ogImage, jsonLd } = Astro.props;
+const { locale, title, description, alternates, ogImage, jsonLd, noindex = false } = Astro.props;
 
 const site = Astro.site!;
 const canonical = new URL(Astro.url.pathname, site).href;
@@ -31,11 +33,17 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <ThemeScript />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    {locales.map((l) => (
-      <link rel="alternate" hreflang={l} href={absolute(alternates[l])} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={absolute(alternates[defaultLocale])} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        {locales.map((l) => (
+          <link rel="alternate" hreflang={l} href={absolute(alternates[l])} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={absolute(alternates[defaultLocale])} />
+      </>
+    )}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 

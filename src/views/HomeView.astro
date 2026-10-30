@@ -12,6 +12,7 @@ import { alternates, pathFor, pick, t, type Locale } from "../i18n/utils";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatPeriod } from "../lib/dates";
 import { getProjects } from "../lib/projects";
+import { personJsonLd } from "../lib/seo";
 
 interface Props {
   locale: Locale;
@@ -27,6 +28,8 @@ const projects = await getProjects();
   title={`${profile.name} · ${pick(profile.eyebrow, locale).split(" · ")[0]}`}
   description={pick(profile.tagline, locale)}
   alternates={alternates({ kind: "home" })}
+  ogImage={`/og/${locale}.png`}
+  jsonLd={personJsonLd(locale)}
 >
   <Hero
     eyebrow={pick(profile.eyebrow, locale)}
