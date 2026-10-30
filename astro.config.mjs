@@ -11,8 +11,17 @@ export default defineConfig({
   build: {
     format: "directory",
   },
+  i18n: {
+    defaultLocale: "es",
+    locales: ["es", "en", "ca"],
+    routing: { prefixDefaultLocale: false },
+  },
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: { defaultLocale: "es", locales: { es: "es-ES", en: "en", ca: "ca" } },
+    }),
+  ],
 });

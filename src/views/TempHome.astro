@@ -1,0 +1,20 @@
+---
+import { t, type Locale } from "../i18n/utils";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Duarte Domingos</title>
+  </head>
+  <body>
+    <h1>{t(locale, "nav.about")}</h1>
+  </body>
+</html>
