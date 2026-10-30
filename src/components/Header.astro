@@ -27,6 +27,29 @@ const sections: [id: string, key: UiKey][] = [
       DD
     </a>
 
+    <button
+      type="button"
+      data-menu-button
+      aria-controls="site-menu"
+      aria-expanded="false"
+      aria-label={t(locale, "menu.open")}
+      data-label-open={t(locale, "menu.open")}
+      data-label-close={t(locale, "menu.close")}
+      class="inline-flex size-10 items-center justify-center rounded-lg text-muted hover:text-ink md:hidden order-last"
+    >
+      <svg
+        class="size-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M4 7h16M4 12h16M4 17h16"></path>
+      </svg>
+    </button>
+
     <nav aria-label={t(locale, "nav.label")}>
       <ul
         id="site-menu"
@@ -46,28 +69,6 @@ const sections: [id: string, key: UiKey][] = [
     <div class="flex items-center gap-1 md:ml-4">
       <LanguageSwitcher locale={locale} alternates={alternates} />
       <ThemeToggle label={t(locale, "theme.toggle")} />
-      <button
-        type="button"
-        data-menu-button
-        aria-controls="site-menu"
-        aria-expanded="false"
-        aria-label={t(locale, "menu.open")}
-        data-label-open={t(locale, "menu.open")}
-        data-label-close={t(locale, "menu.close")}
-        class="inline-flex size-10 items-center justify-center rounded-lg text-muted hover:text-ink md:hidden"
-      >
-        <svg
-          class="size-5"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.75"
-          stroke-linecap="round"
-          aria-hidden="true"
-        >
-          <path d="M4 7h16M4 12h16M4 17h16"></path>
-        </svg>
-      </button>
     </div>
   </div>
 </header>
@@ -92,6 +93,10 @@ const sections: [id: string, key: UiKey][] = [
     );
     menu.addEventListener("click", (event) => {
       if (event.target.closest("a")) setOpen(false);
+    });
+    document.addEventListener("click", (event) => {
+      const open = button.getAttribute("aria-expanded") === "true";
+      if (open && !menu.contains(event.target) && !button.contains(event.target)) setOpen(false);
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {

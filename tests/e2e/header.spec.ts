@@ -21,6 +21,27 @@ test("mobile menu by keyboard", async ({ page }) => {
   await expect(btn).toHaveAttribute("aria-expanded", "false");
 });
 
+test("opened mobile menu is reachable with Tab", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto("/");
+  const btn = page.getByRole("button", { name: /menú|menu/i });
+  await btn.focus();
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("navigation").getByRole("link", { name: "Sobre mí" })).toBeFocused();
+});
+
+test("mobile menu closes when clicking outside it", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto("/");
+  const btn = page.getByRole("button", { name: /menú|menu/i });
+  await btn.click();
+  await expect(btn).toHaveAttribute("aria-expanded", "true");
+  // Bottom of the screen: below the open menu panel.
+  await page.mouse.click(20, 780);
+  await expect(btn).toHaveAttribute("aria-expanded", "false");
+});
+
 // Review Focus 5 (header part)
 test("desktop nav visible without JS", async ({ browser }) => {
   const context = await browser.newContext({
