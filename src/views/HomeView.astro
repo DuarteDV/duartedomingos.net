@@ -1,0 +1,103 @@
+---
+import photo from "../assets/duarte-domingos.jpg";
+import About from "../components/About.astro";
+import Contact from "../components/Contact.astro";
+import Education from "../components/Education.astro";
+import Experience from "../components/Experience.astro";
+import Hero from "../components/Hero.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Section from "../components/Section.astro";
+import Skills from "../components/Skills.astro";
+import { jobs, profile, skills, spokenLanguages, studies } from "../data/cv";
+import { alternates, pathFor, pick, t, type Locale } from "../i18n/utils";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatPeriod } from "../lib/dates";
+import { getProjects } from "../lib/projects";
+import { personJsonLd } from "../lib/seo";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const cvHref = pick(profile.cvPdf, locale);
+const projects = await getProjects();
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${profile.name} · ${pick(profile.eyebrow, locale).split(" · ")[0]}`}
+  description={pick(profile.tagline, locale)}
+  alternates={alternates({ kind: "home" })}
+  ogImage={`/og/${locale}.png`}
+  jsonLd={personJsonLd(locale)}
+>
+  <Hero
+    eyebrow={pick(profile.eyebrow, locale)}
+    name={profile.name}
+    tagline={pick(profile.tagline, locale)}
+    ctaProjects={t(locale, "hero.ctaProjects")}
+    ctaCv={t(locale, "hero.ctaCv")}
+    cvHref={cvHref}
+  />
+  <About
+    title={t(locale, "nav.about")}
+    about={pick(profile.about, locale)}
+    availability={pick(profile.availability, locale)}
+    photo={photo}
+    name={profile.name}
+  />
+  <Experience
+    title={t(locale, "nav.experience")}
+    items={jobs.map((job) => ({
+      company: job.company,
+      role: pick(job.role, locale),
+      period: formatPeriod(job.start, job.end, locale),
+      bullets: pick(job.bullets, locale),
+      stack: job.stack,
+    }))}
+  />
+  <Section id="projects" title={t(locale, "nav.projects")}>
+    <div class="grid gap-x-8 gap-y-12 sm:grid-cols-2">
+      {projects.map(({ slug, byLocale }) => {
+        const { title, summary, year, stack, cover } = byLocale[locale].data;
+        return (
+          <ProjectCard
+            href={pathFor(locale, { kind: "project", slug })}
+            title={title}
+            summary={summary}
+            year={year}
+            stack={stack}
+            cover={cover}
+          />
+        );
+      })}
+    </div>
+  </Section>
+  <Skills
+    title={t(locale, "nav.skills")}
+    groups={skills.map((group) => ({ name: pick(group.name, locale), items: group.items }))}
+    languagesTitle={t(locale, "section.languages")}
+    languages={spokenLanguages.map((language) => ({
+      name: pick(language.name, locale),
+      level: pick(language.level, locale),
+    }))}
+  />
+  <Education
+    title={t(locale, "nav.education")}
+    items={studies.map((study) => ({
+      title: pick(study.title, locale),
+      center: study.center,
+      period: `${study.start} – ${study.end}`,
+    }))}
+  />
+  <Contact
+    title={t(locale, "nav.contact")}
+    intro={t(locale, "contact.intro")}
+    email={profile.email}
+    linkedin={profile.links.linkedin}
+    github={profile.links.github}
+    cvHref={cvHref}
+    cvLabel={t(locale, "hero.ctaCv")}
+  />
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+import Section from "./Section.astro";
+
+interface Props {
+  title: string;
+  items: { title: string; center: string; period: string }[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<Section id="education" title={title}>
+  <ol class="space-y-8">
+    {items.map((study) => (
+      <li>
+        <p class="font-mono text-xs text-muted">{study.period}</p>
+        <h3 class="mt-1 font-medium">{study.title}</h3>
+        <p class="text-muted">{study.center}</p>
+      </li>
+    ))}
+  </ol>
+</Section>

@@ -1,0 +1,23 @@
+<!-- Runs before first paint so the page never flashes the wrong theme. -->
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    let saved = null;
+    try {
+      saved = localStorage.getItem("theme");
+    } catch {
+      // Storage blocked: fall back to the system preference.
+    }
+    const system = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    root.dataset.theme = saved === "dark" || saved === "light" ? saved : system;
+
+    window.__setTheme = (next) => {
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem("theme", next);
+      } catch {
+        // Storage blocked: the choice lasts for this page view only.
+      }
+    };
+  })();
+</script>

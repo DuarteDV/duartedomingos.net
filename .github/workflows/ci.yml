@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check
+      - run: npm run lint
+      - run: npm run test:unit
+      # Tested build has no analytics token, so tests and Lighthouse never load the beacon.
+      - run: npm run build
+      - run: npm run test:e2e
+      - run: npm run lhci
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # Only production counts visits: previews are built without the analytics token.
+      - run: npm run build
+        env:
+          PUBLIC_CF_BEACON_TOKEN: ${{ github.event_name == 'push' && vars.PUBLIC_CF_BEACON_TOKEN || '' }}
+      # Pull requests get a temporary preview channel; pushes to main go live.
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLUCKY_LANE_362615 }}
+          projectId: plucky-lane-362615
+          channelId: ${{ github.event_name == 'push' && 'live' || '' }}

@@ -1,0 +1,36 @@
+---
+import { contact } from "../data/contact";
+import { t, type Locale } from "../i18n/utils";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div class="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <p>
+      © {year} · {t(locale, "footer.rights")}
+    </p>
+    <ul class="flex flex-wrap gap-x-6 gap-y-2">
+      <li>
+        <a href={`mailto:${contact.email}`} class="hover:text-ink">
+          {contact.email}
+        </a>
+      </li>
+      <li>
+        <a href={contact.linkedin} class="hover:text-ink">
+          LinkedIn
+        </a>
+      </li>
+      <li>
+        <a href={contact.github} class="hover:text-ink">
+          GitHub
+        </a>
+      </li>
+    </ul>
+  </div>
+</footer>

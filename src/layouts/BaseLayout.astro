@@ -1,0 +1,99 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import ThemeScript from "../components/ThemeScript.astro";
+import { defaultLocale, locales, pathFor, t, type Locale, type Localized } from "../i18n/utils";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  alternates: Localized<string>;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown>;
+  /** For pages that must stay out of search results (404): no canonical or hreflang either. */
+  noindex?: boolean;
+  /** Header, footer and skip link. Off for the 404, whose language is only known in the browser. */
+  chrome?: boolean;
+}
+
+const {
+  locale,
+  title,
+  description,
+  alternates,
+  ogImage,
+  jsonLd,
+  noindex = false,
+  chrome = true,
+} = Astro.props;
+
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const absolute = (path: string) => new URL(path, site).href;
+const ogLocale: Localized<string> = { es: "es_ES", en: "en_US", ca: "ca_ES" };
+const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ThemeScript />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        {locales.map((l) => (
+          <link rel="alternate" hreflang={l} href={absolute(alternates[l])} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={absolute(alternates[defaultLocale])} />
+      </>
+    )}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale[locale]} />
+    {ogImage && <meta property="og:image" content={absolute(ogImage)} />}
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {beaconToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: beaconToken })}
+      />
+    )}
+  </head>
+  <body class="min-h-dvh">
+    {chrome && (
+      <>
+        <a
+          href="#main"
+          class="sr-only rounded-lg bg-ink px-4 py-2 text-surface focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50"
+        >
+          {t(locale, "a11y.skip")}
+        </a>
+        <Header
+          locale={locale}
+          alternates={alternates}
+          homeHref={pathFor(locale, { kind: "home" })}
+        />
+      </>
+    )}
+    <main id="main">
+      <slot />
+    </main>
+    {chrome && <Footer locale={locale} />}
+  </body>
+</html>

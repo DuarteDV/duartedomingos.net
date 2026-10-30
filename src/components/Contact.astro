@@ -1,0 +1,42 @@
+---
+import Section from "./Section.astro";
+
+interface Props {
+  title: string;
+  intro: string;
+  email: string;
+  linkedin: string;
+  github: string;
+  cvHref: string;
+  cvLabel: string;
+}
+
+const { title, intro, email, linkedin, github, cvHref, cvLabel } = Astro.props;
+---
+
+<Section id="contact" title={title}>
+  <p class="max-w-xl text-lg">{intro}</p>
+  <a
+    href={`mailto:${email}`}
+    class="mt-6 inline-block text-xl font-medium break-all text-accent underline-offset-4 hover:underline md:text-2xl"
+  >
+    {email}
+  </a>
+  <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+    <li>
+      <a href={linkedin} class="underline-offset-4 hover:underline">
+        LinkedIn
+      </a>
+    </li>
+    <li>
+      <a href={github} class="underline-offset-4 hover:underline">
+        GitHub
+      </a>
+    </li>
+    <li>
+      <a href={cvHref} download class="underline-offset-4 hover:underline">
+        {cvLabel}
+      </a>
+    </li>
+  </ul>
+</Section>
